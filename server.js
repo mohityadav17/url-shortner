@@ -2,7 +2,8 @@ const Url = require('./models/Url');
 const shortid = require('shortid');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://my6644866448_db_user:Mohit17102004@cluster0.fg6t6wb.mongodb.net/?appName=Cluster0')
+mongoose.connect(process.env.MONGO_URI)
+
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
 

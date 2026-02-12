@@ -17,9 +17,9 @@ mongoose.connect(
 .catch(err => console.log(err));
 
 // ===== MIDDLEWARE =====
-app.use(cors());                    // allow frontend requests
-app.use(express.json());            // read JSON body
-app.use(express.static('public'));  // serve frontend HTML
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
 
 // ===== ROUTES =====
 
@@ -36,7 +36,10 @@ app.post('/shorten', async (req, res) => {
 
     await newUrl.save();
 
-    res.send(`Short URL created: http://localhost:5000/${shortCode}`);
+    res.json({
+      shortUrl: `http://localhost:5000/${shortCode}`
+    });
+
   } catch (err) {
     res.status(500).send('Error saving URL');
   }
@@ -59,6 +62,19 @@ app.get('/stats/:code', async (req, res) => {
     }
   } catch (err) {
     res.status(500).send('Server error');
+  }
+});
+
+// history route (NEW)
+app.get('/history', async (req, res) => {
+  try {
+    const urls = await Url.find()
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res.json(urls);
+  } catch (err) {
+    res.status(500).send('Error fetching history');
   }
 });
 

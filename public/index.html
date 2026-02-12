@@ -3,19 +3,46 @@
 <head>
   <title>URL Shortener</title>
   <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
 
   <div class="container">
-    <h1>URL Shortener</h1>
+    <div class="card">
 
-    <input type="text" id="longUrl" placeholder="Enter long URL here" />
+      <div class="top-bar">
+        <h1>URL Shortener</h1>
+        <button class="dark-toggle" onclick="toggleDarkMode()">⬛</button>
+      </div>
 
-    <button onclick="shortenUrl()">Shorten</button>
+      <p class="subtitle">Paste your long link and get a short one instantly</p>
 
-    <p id="result"></p>
+      <div class="input-group">
+        <input type="text" id="longUrl" placeholder="Enter your long URL here..." />
+        <button onclick="shortenUrl()">Shorten</button>
+      </div>
+
+      <div id="loader" class="loader"></div>
+
+      <div id="resultBox" class="result-box">
+        <p id="result"></p>
+        <button id="copyBtn" onclick="copyLink()">Copy</button>
+        <div id="qrBox" style="margin-top:15px;"></div>
+      </div>
+
+      <p id="errorMsg" class="error"></p>
+
+      <!-- 🔥 HISTORY PANEL ADDED -->
+      <div class="history">
+        <h3>Recent Links</h3>
+        <ul id="historyList"></ul>
+      </div>
+
+    </div>
   </div>
 
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
 </body>
 </html>
